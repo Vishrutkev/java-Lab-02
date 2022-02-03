@@ -79,14 +79,13 @@ public class Utilities {
         String numb = "number";
         for(int num = lowerLimit; num <= upperLimit; num++){
             numTotal = numTotal +1;
-            if (num % 2 == 0){
-                evenTotal = (evenTotal + num);
+            if (num % 2 == 0){ // Checking if num is even or odd.
+                evenTotal = (evenTotal + num); // Adding all the even numbers after looping
 
             }else if(lowerLimit == upperLimit) {
                 numb = "number";
-                //return(numTotal + " " + "number between "  + lowerLimit + " " + "and" + " " +  upperLimit + ":" + " " + "sum of odds " + "(" + oddTotal + ")" + " " + "and sum of evens " + "(" + evenTotal + ")" );
             } else{
-                oddTotal = (oddTotal + num);
+                oddTotal = (oddTotal + num);  // Adding all the odd numbers after looping
                  numb = "numbers";
             }
 
@@ -139,14 +138,13 @@ public class Utilities {
 
     public static String minutesSeconds(int seconds) {
 
-        int one_minute = 60;
         int minTotal = 0;
-        int remainingSec = 0;
-        for (int second = 60; second <= seconds; second += 60) {
+        int remainingSec;
+        for (int second = 60; second <= seconds; second += 60) { // looping every 60 seconds.
             minTotal = minTotal + 1;
         }
         if (seconds >= 60) {
-            remainingSec = seconds - (minTotal * 60);
+            remainingSec = seconds - (minTotal * 60); // Calculating the leftover seconds which is less than 60 seconds.
         } else {
             remainingSec = seconds;
         }
@@ -190,30 +188,37 @@ public class Utilities {
      * @return a double value representing the value of the given fraction raised to the given exponent.
      *         The returned value should be rounded to the nearest millionth
      */
-    public static double fractionExponents(int numerator, int denominator, int exponent ){
-        Double numera = (double) numerator;
-        Double denom = (double) denominator;
+    public static double fractionExponents(int numerator, int denominator, int exponent ) {
+        Double numera = (double) numerator;   // Converting int to Double
+        Double denom = (double) denominator;  // Converting int to Double
         double result = 1;
         double half = numera / denom;
         double inverseHalf = denom / numera;
 
+        if (numera == 0) {  // if numerator = 0, answer = 0
+            result = 0;
 
-        if (exponent < 0) {
+        }else if (denom == 0){  // if denominator = 0 , answer = 0(i.e. "Undefined")
+            result = 0;
+        }
+
+        else if (exponent < 0) {  // Calculating the negative exponent
             exponent = (-exponent);
-            for (int expo = exponent; expo != 0; expo--) {
+            for (int expo = exponent; expo != 0; expo--) {  // Looping exponent by increment of (-1) and not 0
                 result = result * inverseHalf;
             }
-
-
         } else {
             for (int expo = exponent; expo != 0; expo--) {
                 result = result * half;
             }
 
         }
-        double roundNum = (int) (result * 1000000 + 0.5);
+        double roundNum = (int) (result * 1000000 + 0.5);  // Rounding the num upto 6th digit after decimal
         result = roundNum / 1000000;
-        return(result);
+        return result;
+
+
+
         /* Your implementation of this method starts here.
          * Recall that :
          * 1. No System.out.println statements should appear here.
@@ -258,12 +263,12 @@ public class Utilities {
      */
 
     public static double fiveyearbalance(double balance, double interest) {
-        double roundedNum = 0;
+        double roundedNum ;
         double finalAnswer = 0;
-        for (int amt = 1; amt <= 5; amt++) {
-            double interes = (balance * interest) / 100;
-            balance = balance + interes;
-            roundedNum = (int) (balance * 100 + 0.49);
+        for (int amt = 1; amt <= 5; amt++) { // Looping 5 time by increment of 1
+            double interes = (balance * interest) / 100;  // Calculating the interest
+            balance = balance + interes;                  // Adding the Calculated interest and storing it in balance everytime it loops.
+            roundedNum = (int) (balance * 100 + 0.49);    // Rounding the num upto 2 digit after decimal
             finalAnswer = roundedNum / 100;
 
         }
@@ -280,7 +285,11 @@ public class Utilities {
     }
 
     public static void main(String[] args) {
-        System.out.println(sumofEvensandOdds(1, 10));
+        System.out.println(sumofEvensandOdds(0, 1));
+        System.out.println(minutesSeconds(61));
+        System.out.println(fractionExponents(1,0,1));
+        System.out.println(fiveyearbalance(3000,2.99));
+
 
     }
 }
